@@ -36,7 +36,4 @@ make orangepi-3b_v1.1_defconfig
 ```
 make -j$(nproc --all)
 ```
-编译完成的输出文件将保存到内核源代码目录下的 `out` 目录中
-`out/arch/boot/Image` 为内核的二进制文件
-`out/arch/boot/dts` 中保存了编译出的设备树文件
-`out/drivers` 中为编译出的驱动程序模块 `.ko` 文件
+编译完成的输出文件将保存到内核源代码目录下的 `out` 目录中。
