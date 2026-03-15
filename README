@@ -1,18 +1,42 @@
-Linux kernel
-============
+# 描述
+这个内核适用于香橙派3B v1.1硬件版本，当前内核源码版本：`6.11.11`
 
-There are several guides for kernel developers and users. These guides can
-be rendered in a number of formats, like HTML and PDF. Please read
-Documentation/admin-guide/README.rst first.
+# 编译方法
+在 `Ubuntu 22.04 LTS` 系统上的编译过程
 
-In order to build the documentation, use ``make htmldocs`` or
-``make pdfdocs``.  The formatted documentation can also be read online at:
+* 克隆这个仓库
+```
+git clone https://github.com/Mxiier/linux-kernel-orangepi-3b.git
+```
 
-    https://www.kernel.org/doc/html/latest/
+* 安装依赖环境
+```
+sudo apt update
+sudo apt install build-essentail bc bison flex libncurses-dev gcc-aarch64-linux-gnu u-boot-tools libssl-dev
+```
+* 进入源代码目录
+```
+cd linux-kernel-orangepi-3b
+```
 
-There are various text files in the Documentation/ subdirectory,
-several of them using the reStructuredText markup notation.
+* 设置交叉编译环境变量
+```
+export ARCH=arm64
+export SUBARCH=arm64
+export CROSS_COMPILE=aarch64-linux-gnu-
+export KBUILD_OUTPUT=./out
+```
 
-Please read the Documentation/process/changes.rst file, as it contains the
-requirements for building and running the kernel, and information about
-the problems which may result by upgrading your kernel.
+* 设置编译的defconfig配置文件
+```
+make orangepi-3b_v1.1_defconfig
+```
+
+* 开始编译
+```
+make -j$(nproc --all)
+```
+编译完成的输出文件将保存到内核源代码目录下的 `out` 目录中
+`out/arch/boot/Image` 为内核的二进制文件
+`out/arch/boot/dts` 中保存了编译出的设备树文件
+`out/drivers` 中为编译出的驱动程序模块 `.ko` 文件
